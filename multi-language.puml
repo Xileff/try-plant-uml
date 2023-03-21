@@ -1,0 +1,26 @@
+@startuml multi_language
+
+entity Categories {
+  * id VARCHAR(100) <<PK>>
+  --
+  * name VARCHAR(100) NOT NULL
+  * position INT NOT NULL
+  * description TEXT
+}
+
+entity CategoriesTranslations {
+  ' PK dibuat composite supaya category id pasti unik
+  ' kalau generate id sebagai PK, takutnya ada record duplikat dengan category_id dan language yang sama
+  ' misalnya
+  ' ID 1, category_id 1, language 1
+  ' ID 2, category_id 1, language 1
+  * category_id VARCHAR(100) <<FK>> <<PK>>
+  * language VARCHAR(100) <<PK>>
+  --
+  * name VARCHAR(100) NOT NULL
+  * description TEXT
+}
+
+Categories ||--o{ CategoriesTranslations
+
+@enduml
